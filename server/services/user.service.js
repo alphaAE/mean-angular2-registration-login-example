@@ -26,6 +26,7 @@ function authenticate(username, password) {
 
         if (user && bcrypt.compareSync(password, user.hash)) {
             // authentication successful
+            // 认证成功
             deferred.resolve({
                 _id: user._id,
                 username: user.username,
@@ -35,6 +36,7 @@ function authenticate(username, password) {
             });
         } else {
             // authentication failed
+            // 认证失败
             deferred.resolve();
         }
     });
@@ -49,6 +51,7 @@ function getAll() {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         // return users (without hashed passwords)
+        // 返回用户（无哈希密码）
         users = _.map(users, function (user) {
             return _.omit(user, 'hash');
         });
@@ -81,6 +84,7 @@ function create(userParam) {
     var deferred = Q.defer();
 
     // validation
+    // 验证
     db.users.findOne(
         { username: userParam.username },
         function (err, user) {
@@ -88,6 +92,7 @@ function create(userParam) {
 
             if (user) {
                 // username already exists
+                // 此用户名已存在
                 deferred.reject('Username "' + userParam.username + '" is already taken');
             } else {
                 createUser();
@@ -96,9 +101,11 @@ function create(userParam) {
 
     function createUser() {
         // set user object to userParam without the cleartext password
+        // 将用户对象设置为不带明文密码的userParam
         var user = _.omit(userParam, 'password');
 
         // add hashed password to user object
+        // 将哈希密码添加到用户对象
         user.hash = bcrypt.hashSync(userParam.password, 10);
 
         db.users.insert(
@@ -116,19 +123,20 @@ function create(userParam) {
 function update(_id, userParam) {
     var deferred = Q.defer();
 
-    // validation
+    // 验证
     db.users.findById(_id, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (user.username !== userParam.username) {
             // username has changed so check if the new username is already taken
+            // 用户名已更改，请检查是否已使用新的用户名
             db.users.findOne(
                 { username: userParam.username },
                 function (err, user) {
                     if (err) deferred.reject(err.name + ': ' + err.message);
 
                     if (user) {
-                        // username already exists
+                        // 此用户名已存在
                         deferred.reject('Username "' + req.body.username + '" is already taken')
                     } else {
                         updateUser();
@@ -141,6 +149,7 @@ function update(_id, userParam) {
 
     function updateUser() {
         // fields to update
+        // 要更新的字段
         var set = {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
@@ -148,6 +157,7 @@ function update(_id, userParam) {
         };
 
         // update password if it was entered
+        // 更新密码（如果已输入）
         if (userParam.password) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
         }
