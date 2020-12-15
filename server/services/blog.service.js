@@ -20,7 +20,6 @@ module.exports = service;
 
 function authenticate(username, password) {
     var deferred = Q.defer();
-    console.log(username + ' ' + password);
 
     db.users.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -100,8 +99,12 @@ function create(userParam) {
         });
 
     function createUser() {
-        // 构造新对象user并对其密码哈希加密
+        // set user object to userParam without the cleartext password
+        // 将用户对象设置为不带明文密码的userParam
         var user = _.omit(userParam, 'password');
+
+        // add hashed password to user object
+        // 将哈希密码添加到用户对象
         user.hash = bcrypt.hashSync(userParam.password, 10);
 
         db.users.insert(

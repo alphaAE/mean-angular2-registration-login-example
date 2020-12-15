@@ -10,7 +10,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 // 使用JWT auth保护api，可以在授权标头或查询字符串中传递令牌
 app.use(expressJwt({
     secret: config.secret,
