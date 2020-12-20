@@ -6,6 +6,16 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var config = require('config.json');
 
+var unlessList = [
+    '/users/authenticate', 
+    '/users/register',
+    '/products',
+    '/products/current',
+
+    '/products/add',
+    '/products/:_id'
+]
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,10 +31,11 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/users/authenticate', '/users/register'] }));
+}).unless({ path: unlessList }));
 
 // routes
 app.use('/users', require('./controllers/users.controller'));
+app.use('/products', require('./controllers/product.controller'));
 
 // error handler
 app.use(function (err, req, res, next) {

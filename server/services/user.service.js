@@ -20,7 +20,7 @@ module.exports = service;
 
 function authenticate(username, password) {
     var deferred = Q.defer();
-    console.log(username + ' ' + password);
+    // console.log('authenticate:' + username + ' ' + password);
 
     db.users.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
