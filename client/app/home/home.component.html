@@ -1,5 +1,5 @@
 ﻿<div>
-    <h1>Hi {{currentUser.firstName}}!</h1>
+    <h1>Hi {{currentUser.username}}!</h1>
 
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">增加</button>
     <table class="table table-striped">
@@ -42,7 +42,7 @@
             <div class="modal-body">
                 <div>
                     <label>名称:
-                        <input [(ngModel)]="createProduct.name" placeholder="name" />
+                        <input placeholder="name" />
                     </label>
                 </div>
             </div>
