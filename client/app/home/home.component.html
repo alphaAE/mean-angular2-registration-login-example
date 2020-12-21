@@ -1,12 +1,55 @@
-﻿<div class="col-md-6 col-md-offset-3">
+﻿<div>
     <h1>Hi {{currentUser.firstName}}!</h1>
-    <!-- <p>You're logged in with the MEAN Stack & Angular 2/5!!</p> -->
-    <h3>所有用户列表:</h3>
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">增加</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名称</th>
+                <th>价格</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td><a class="btn btn-danger" (click)="deleteProduct(product._id)">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <h3>所有用户列表:</h3>
     <ul>
         <li *ngFor="let user of users">
             {{user.username}} ({{user.firstName}} {{user.lastName}})
             - <a (click)="deleteUser(user._id)">删除</a>
         </li>
-    </ul>
+    </ul> -->
     <p><a [routerLink]="['/login']">登出</a></p>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">增加商品</h4>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <label>名称:
+                        <input [(ngModel)]="createProduct.name" placeholder="name" />
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
