@@ -128,14 +128,81 @@
                 </div><!-- /.container-fluid -->
             </section>
 
-            <!-- Main content -->
+            <!-- Main content 操作版 -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">增加</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="addProductName">商品名</label>
+                                    <input [(ngModel)]="createProduct.name" type="text" id="addProductName"
+                                        class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addProductPrice">价格</label>
+                                    <input [(ngModel)]="createProduct.price" type="text" id="addProductPrice"
+                                        class="form-control">
+                                </div>
+                                <input type="submit" value="添加" class="btn btn-success float-right"
+                                    (click)="addProduct()">
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">修改</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="updateProductName">商品名</label>
+                                    <input [(ngModel)]="updateProductOne.name" type="text" id="updateProductName"
+                                        class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateProductPrice">价格</label>
+                                    <input [(ngModel)]="updateProductOne.price" type="text" id="updateProductPrice"
+                                        class="form-control">
+                                </div>
+                                <input type="submit" value="保存" class="btn btn-success float-right"
+                                    (click)="updateProduct()">
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </section>
+            <!-- /.content 操作版 -->
+
+            <!-- Main content 列表-->
             <section class="content">
 
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <!-- <h3 class="card-title">Projects</h3> -->
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">增加</button>
+                        <h3 class="card-title">商品列表</h3>
+                        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">增加</button> -->
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
@@ -182,7 +249,8 @@
                                             </i>
                                             View
                                         </a> -->
-                                        <a class="btn btn-info btn-sm" href="#">
+                                        <a class="btn btn-info btn-sm" href="#"
+                                            (click)="selectUpdateProduct(product._id)">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             编辑
@@ -203,7 +271,8 @@
                 <!-- /.card -->
 
             </section>
-            <!-- /.content -->
+            <!-- /.content 列表 -->
+
         </div>
         <!-- /.content-wrapper -->
 

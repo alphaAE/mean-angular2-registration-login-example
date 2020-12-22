@@ -11,7 +11,8 @@ import { UserService, ProductService } from '../_services/index';
 
 export class HomeComponent implements OnInit {
 
-    @Input() createProduct: Product;
+    createProduct: any = {};
+    updateProductOne: any = {};
 
     currentUser: User;
     users: User[] = [];
@@ -25,6 +26,10 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.loadAllUsers();
         this.loadAllProducts();
+        this.createProduct = {
+            name: "Test",
+            price: "10",
+        }
     }
 
 
@@ -41,8 +46,21 @@ export class HomeComponent implements OnInit {
     }
 
     private loadAllProducts() {
-        this.productService.getAll().subscribe(products => { 
+        this.productService.getAll().subscribe(products => {
             this.products = products;
         })
+    }
+
+    addProduct() {
+        this.productService.create(this.createProduct).subscribe(() => { this.loadAllProducts() })
+    }
+
+    selectUpdateProduct(_id: string) {
+        this.productService.getById(_id).subscribe(user => { this.updateProductOne = user })
+    }
+
+    updateProduct() {
+        if (this.updateProductOne.name)
+            this.productService.update(this.updateProductOne).subscribe(() => { this.loadAllProducts() })
     }
 }

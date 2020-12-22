@@ -6,7 +6,7 @@ var productService = require('services/product.service');
 // routes
 router.post('/add', add);
 router.get('/', getAll);
-router.get('/current', getCurrent);
+router.get('/:_id', getCurrent);
 router.put('/:_id', update);
 router.delete('/:_id', _delete);
 
@@ -33,7 +33,8 @@ function getAll(req, res) {
 }
 
 function getCurrent(req, res) {
-    productService.getById(req.product.sub)
+    // console.log(req)
+    productService.getById(req.params._id)
         .then(function (product) {
             if (product) {
                 res.send(product);
