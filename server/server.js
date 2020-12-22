@@ -9,10 +9,8 @@ var config = require('config.json');
 var unlessList = [
     '/users/authenticate', 
     '/users/register',
-    '/products',
-    '/products/current',
 
-    '/products/add',
+    '/products',
     '/products/:_id'
 ]
 
